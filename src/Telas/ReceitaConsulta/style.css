@@ -1,0 +1,39 @@
+.header {
+    width: 96%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-radius: var(--paddingPadrao);
+    background-color: #282f3b;
+    position: fixed;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.header .content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.header .imagemPessoa {
+    padding-left: 10px;
+}
+
+.header .boxTipoConta {
+    left: 12px;
+}
+
+.bttnAddConta {
+    width: 30px !important;
+    height: 30px !important;
+    padding: 10px;
+    background-color: #007FFF !important;
+    border-radius: 50%;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.568);
+    position: fixed;
+    bottom: 100px;
+    right: 10px;
+    color: #fff;
+}

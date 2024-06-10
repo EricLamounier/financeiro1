@@ -1,0 +1,6 @@
+#principal {
+    --principalPadding: 70px;
+    width: 96%;
+    height: 100%;
+    padding: calc(var(--principalPadding) - 30px) 2% calc(var(--principalPadding) - 55px) 2%;
+}

@@ -1,0 +1,68 @@
+:root {
+  --cornerSize: 8.2px;
+  --menuSize: 400px;
+  --selectedSize: calc(var(--menuSize)/5.03);
+  --radius: 8px;
+  --activeColor: #4FC5CC;
+  --paddingPadrao: 5px;
+}
+
+body{
+  display: flex;
+  flex-direction: column;
+  background-color: #333A46;
+  width: 100vw;
+  height: 100vh;
+}
+
+p {
+  margin: 0;
+}
+
+a, a:focus, a:active,
+button, button:focus, button:active {
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
+}
+
+input {
+  outline: 0;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Para Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.inputBox {
+  display: flex;
+  position: relative;
+}
+
+.button {
+  width: 100px;
+  height: 30px;
+  border: 1px solid;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.button.salvar {
+  background-color: #007FFF;
+  color: #fff;
+  border-color: #007FFF;
+  border-top-width: 2px;
+  border-top-color: #6da1d4;
+}
+
+.button.salvar:active {
+  background-color: #0169d1;
+  border-top-color: #0169d1;
+}

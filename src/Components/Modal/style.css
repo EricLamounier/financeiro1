@@ -1,0 +1,147 @@
+#modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.781);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.modalTitulo {
+    position: absolute;
+    width: calc(100% - 20px);
+    top: 10px;
+    left: 10px;
+    border-bottom: 1px solid gray;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="password"],
+input[type="email"] {
+    background-color: #1C2025 !important;
+    border: 1px solid #434D5B !important;
+    border-radius: 3px;
+    padding: 7px;
+    color:  #e6e6e6;
+    height: 30px;
+    font-size: 16px;
+}
+
+input::placeholder {
+    color: #434D5B;
+}
+
+input[type="text"]:hover,
+input[type="number"]:hover,
+input[type="password"]:hover,
+input[type="email"]:hover {
+    outline: 1px solid #3399FF;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus {
+    outline: 2px solid #3399FF;
+}
+
+.inputBox.text > label,
+.inputBox.number > label,
+.inputBox.text > label,
+.inputBox.number > label {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    font-size: 15px;
+    transition: 0.1s;
+    color: gray;
+}
+
+.inputBox.text input:focus + label,
+.inputBox.number input:focus + label,
+.inputBox.text input:valid + label,
+.inputBox.number input:valid + label {
+    top: -18px;
+    left: 0;
+    font-size: 12px;
+}
+
+.inputBox:has(input[type="text"]),
+.inputBox:has(input[type="number"]),
+.inputBox:has(input[type="password"]),
+.inputBox:has(input[type="email"]){
+    height: 40px;
+}
+
+.inputBox.text,
+.inputBox.number {
+    flex-direction: column-reverse;
+    position: relative;
+}
+
+.inputBox.boxBotoes {
+    position: absolute;
+    display: flex;
+    gap: 10px;
+    bottom:10px;
+    right: 10px;
+}
+
+input[type="radio"]{
+    display: block;
+}
+
+label.inputRadio {
+    position: relative;
+    padding-left: 20px;
+}
+
+label.inputRadio::before {
+    --sizeCheckbox: 11px;
+    content: '';
+    width: var(--sizeCheckbox);
+    height: var(--sizeCheckbox);
+    position: absolute;
+    left: 0;
+    top: calc(var(--sizeCheckbox)/2);
+    border: 1px solid #434D5B;
+    background: #1C2025;
+    box-shadow: inset 2px 2px 3px #181b1f, inset -2px -2px 3px #20252b;
+}
+
+label.inputRadio::after {
+    display: none;
+    --sizeCheckbox: 9px;
+    content: '';
+    width: var(--sizeCheckbox);
+    height: var(--sizeCheckbox);
+    position: absolute;
+    top: 7.1px;
+    left: 1.6px;
+    border-radius: 0px;
+    background: linear-gradient(145deg, #55d3da, #47b1b8);
+}
+
+input[type="radio"]:checked + label.inputRadio::after {
+    display: block;
+}
+
+.modalBox {
+    width: 70%;
+    background-color: #101316;
+    color: #fff;
+    padding: 50px;
+    position: relative;
+}
+
+.modalForm {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}

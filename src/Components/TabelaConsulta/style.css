@@ -1,0 +1,29 @@
+table.tabelaConsulta {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    color: #fff;
+    margin-top: 100px;
+}
+
+.tabelaConsulta td, th {
+    border-bottom: 1px solid #434D5B;
+    text-align: left;
+    padding: 8px;
+}
+
+.tabelaConsulta tr {
+    background-color: rgb(39, 46, 56);
+}
+
+.tabelaConsulta thead tr {
+    background-color: rgb(29, 35, 44);
+}
+
+.tabelaConsulta .tdsituacao1 {
+    color: green;
+}
+
+.tabelaConsulta .tdsituacao0 {
+    color: red;
+}

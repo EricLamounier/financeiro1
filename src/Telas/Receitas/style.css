@@ -1,0 +1,22 @@
+.receitas {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.adicionaNovaConta {
+    justify-content: center;
+    gap: 40px;
+}
+
+.addContaIcon {
+    --sizeIconeNovaConta: 50px;
+    width: var(--sizeIconeNovaConta) !important;
+    height: var(--sizeIconeNovaConta) !important;
+}
+
+.modalForm {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}

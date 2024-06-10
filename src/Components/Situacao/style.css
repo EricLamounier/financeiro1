@@ -1,0 +1,11 @@
+.situacao {
+    background-color: #1C2025;
+}
+
+.situacao {
+    border: 1px solid #434D5B;
+}
+
+.situacao:hover {
+    outline: 1px solid #3399FF;
+}

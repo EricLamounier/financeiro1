@@ -1,0 +1,20 @@
+#menu {
+    width: 96%;
+    height: 80px;
+    display: flex;
+    background-color: #3F4A5A;
+    position: fixed;
+    bottom: 6px;
+    left: 2%;
+    border-radius: var(--paddingPadrao);
+    overflow: hidden;
+}
+
+#menu > .menuOpt {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}

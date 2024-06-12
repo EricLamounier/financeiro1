@@ -5,30 +5,31 @@ import { DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { MobileDatePicker as DatePicker } from '@mui/x-date-pickers/MobileDatePicker';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 dayjs.locale('pt-br');
 
-export default function DataPicker({ setData, data, initialDate, formato }) {
-  const currentDate = data ? dayjs(data, 'DD/MM/YYYY') : dayjs();
-  const [selectedDate, setSelectedDate] = useState(currentDate);
+export default function DataPicker({ setData, data, formato }) {
 
-  /*useEffect(() => {
-    setData(selectedDate.format('MM/YYYY'));
-    console.log(selectedDate);
-  }, [selectedDate, setData]);*/
+  const [selectedDate, setSelectedDate] = useState(data ? dayjs(data) : dayjs());
 
   const handleDateChange = (newDate) => {
-    const formattedDate = newDate.format('MM/YYYY');
+    const formattedDate = newDate.format(formato);
     setSelectedDate(newDate);
     setData(formattedDate);
+    console.log(formattedDate)
   };
+
+  useEffect(()=>{
+    setData(selectedDate.format(formato));
+    console.log(selectedDate.format(formato))
+  }, [selectedDate])
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoItem>
         <DatePicker 
-          value={currentDate}
+          value={selectedDate}
           views={formato == 'MM/YYYY' ? ['year', 'month'] : ['year', 'month', 'day']}
           onChange={handleDateChange}
           format={formato}

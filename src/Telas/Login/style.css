@@ -23,3 +23,19 @@
 #login .inputBox .button.salvar {
     height: 30px !important;
 }
+
+#login .labelLogin {
+    position: absolute;
+    left: 0;
+    z-index: -1;
+    top: 10px;
+    color: #fa0000;
+    font-size: 12px;
+    transition: 0.1s;
+    opacity: 0;   
+}
+
+#login .labelLogin.invalid {
+    top: -10px;
+    opacity: 1;
+}

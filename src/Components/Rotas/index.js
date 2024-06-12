@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate  } from 'react-router-dom';
+import { Routes, Route, Navigate  } from 'react-router-dom';
 
 import Home from '../../Telas/Home';
 import Receitas from '../../Telas/Receitas';
@@ -11,17 +11,16 @@ import FiltroData from '../FiltroData';
 import ReceitaConsulta from '../../Telas/ReceitaConsulta';
 
 export default function Rotas() {
-  const [isAuthenticated, setAuthenticated] = useState(true);
+  const [isAuthenticated, setAuthenticated] = useState(false);
   const [data, setData] = useState('')
-  const [token, setToken] = useState()
+  const [token, setToken] = useState(false)
 
   useEffect(()=>{
-    //setAuthenticated(token === '123')
     console.log(token)
   }, [token])
   return (
     <>
-      {isAuthenticated ? (
+      {token ? (
         <>
         <button onClick={()=>setAuthenticated(false)}> sair </button>
           <FiltroData />

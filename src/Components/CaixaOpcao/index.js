@@ -19,7 +19,7 @@ export default function CaixaOpcao({path, pessoa}){
                     </div>
                 </div>
                 <p className='tipoConta'>
-                    {pessoa.modo_conta ? 'Dividido' : 'Individual'}
+                    {pessoa.modo_pessoa ? 'Dividido' : 'Individual'}
                 </p>
             </div>
             <ArrowForwardIosIcon />            

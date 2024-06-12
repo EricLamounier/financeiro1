@@ -1,0 +1,50 @@
+.button {
+    width: 50px;
+    height: 40px;
+    border: 1px solid;
+    border-radius: 3px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.button.salvar {
+    background-color: #007FFF;
+    color: #fff;
+    border-color: #007FFF;
+    border-top-width: 2px;
+    border-top-color: #6da1d4;
+}
+
+.button.excluir {
+    background-color: #ff4800;
+    color: #fff;
+    border-color: #ff0000;
+    border-top-width: 2px;
+    border-top-color: #d46d6d;
+}
+
+.button.cancelar {
+    background-color: #dbdbdb;
+    color: #000;
+    border-color: #5a5a5a;
+    border-top-width: 2px;
+    border-top-color: #f0f0f0;
+}
+
+.button.salvar:active {
+    background-color: #0169d1;
+    border-top-color: #0169d1;
+}
+
+.button.excluir:active {
+    background-color: #b90000;
+    border-top-color: #b90000;
+}
+
+.button.cancelar:active {
+    background-color: #b9b9b9;
+    border-top-color: #b9b9b9;
+}

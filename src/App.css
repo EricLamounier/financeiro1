@@ -26,6 +26,85 @@ button, button:focus, button:active {
   text-decoration: none;
 }
 
+input[type="text"],
+input[type="number"],
+input[type="password"],
+input[type="email"] {
+    background-color: #1C2025 !important;
+    border: 1px solid #434D5B;
+    border-radius: 3px;
+    padding: 7px;
+    color:  #e6e6e6;
+    height: 30px;
+    font-size: 16px;
+}
+
+input::placeholder {
+    color: #434D5B;
+}
+
+input[type="text"]:hover,
+input[type="number"]:hover,
+input[type="password"]:hover,
+input[type="email"]:hover {
+    outline: 1px solid #3399FF;
+    border-color: #3399FF !important;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus {
+    outline: 2px solid #3399FF;
+    border-color: #3399FF !important;
+}
+
+.inputBox.text > label,
+.inputBox.number > label,
+.inputBox.text > label,
+.inputBox.number > label {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    font-size: 15px;
+    transition: 0.1s;
+    color: gray;
+}
+
+.inputBox.text input:focus + label,
+.inputBox.number input:focus + label,
+.inputBox.text input:valid + label,
+.inputBox.number input:valid + label {
+    top: -18px;
+    left: 0;
+    font-size: 12px;
+}
+
+.inputBox:has(input[type="text"]),
+.inputBox:has(input[type="number"]),
+.inputBox:has(input[type="password"]),
+.inputBox:has(input[type="email"]){
+    height: 40px;
+}
+
+.inputBox.text,
+.inputBox.number {
+    flex-direction: column-reverse;
+    position: relative;
+}
+
+.inputBox.boxBotoes {
+    position: absolute;
+    display: flex;
+    gap: 10px;
+    bottom:10px;
+    right: 10px;
+}
+
+input[type="radio"]{
+    display: none;
+}
+
 input {
   outline: 0;
 }
@@ -46,23 +125,10 @@ input[type="number"] {
   position: relative;
 }
 
-.button {
-  width: 100px;
-  height: 30px;
-  border: 1px solid;
-  border-radius: 3px;
-  cursor: pointer;
+input.invalid {
+  border-color: red !important;
 }
 
-.button.salvar {
-  background-color: #007FFF;
-  color: #fff;
-  border-color: #007FFF;
-  border-top-width: 2px;
-  border-top-color: #6da1d4;
-}
-
-.button.salvar:active {
-  background-color: #0169d1;
-  border-top-color: #0169d1;
+input {
+  border-color: red;
 }

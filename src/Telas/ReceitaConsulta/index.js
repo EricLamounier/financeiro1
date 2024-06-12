@@ -1,18 +1,19 @@
 import './style.css';
 import { useEffect, useState } from 'react';
+import Face6Icon from '@mui/icons-material/Face6';
+import AddIcon from '@mui/icons-material/Add';
+import dayjs from 'dayjs';
+import { useLocation } from 'react-router-dom';
+import axios from 'axios';
+
 import Principal from '../Principal';
 import TabelaConsulta from '../../Components/TabelaConsulta';
 import Modal from '../../Components/Modal';
 import InputBox from '../../Components/InputBox';
 import DataPicker from '../../Components/DataPicker';
 import Situacao from '../../Components/Situacao';
-import Face6Icon from '@mui/icons-material/Face6';
-import AddIcon from '@mui/icons-material/Add';
-import dayjs from 'dayjs';
-import { v4 as uuidv4 } from 'uuid';
-import { useLocation, useParams } from 'react-router-dom';
+import { BttnCancelar, BttnExcluir, BttnSalvar } from '../../Components/Buttons';
 
-import api from '../../api'
 
 export default function ReceitaConsulta() {
     const [modal, setModal] = useState(false);
@@ -22,20 +23,34 @@ export default function ReceitaConsulta() {
     const [contas, setContas] = useState([])
 
     useEffect(()=>{
-        const fetchData = async () => {
-            const res = await api.get('/contas')
-            const contasReceitas = res.data.filter(conta => (conta.tipo_conta === "0" && conta.pessoa_id === pessoa.id) );
-            setContas(contasReceitas)
-        }
 
-        fetchData()
+        try{
+            axios.get(`http://192.168.3.9:3000/get_contas`, {
+                params: {
+                    pessoa_id: pessoa.id,
+                    tipo_conta: 0
+                }
+            })
+            .then(res => {
+                setContas(res.data)
+                console.log(res.data)
+            })
+        }catch(err){
+            console.log('Error: ' + err)
+        }
     },[])
 
     return (
         <Principal className='receitaConsulta'>
             {modal && (
                 <Modal titulo='Adicionar/Editar conta'>
-                    <ModalConsulta row={modal} contas={contas} pessoaID={pessoa.id} setModal={setModal} />
+                    <ModalConsulta 
+                        row={modal} 
+                        contas={contas} 
+                        pessoaID={pessoa.id} 
+                        setModal={setModal}
+                        setContas={setContas}
+                    />
                 </Modal>
             )}
             <div className='header'>
@@ -48,7 +63,7 @@ export default function ReceitaConsulta() {
                         <p>Total: <span>{pessoa.total_receber}</span></p>
                     </div>
                 </div>
-                <p className='tipoConta'>{pessoa.modo_conta ? 'Dividido' : 'Individual'}</p>
+                <p className='tipoConta'>{pessoa.modo_pessoa ? 'Dividido' : 'Individual'}</p>
             </div>
             <TabelaConsulta
                  setModal={setModal}
@@ -56,14 +71,14 @@ export default function ReceitaConsulta() {
             />
             <AddIcon
                 className='bttnAddConta'
-                onClick={() => setModal(-1)}
+                onClick={() => setModal(1)}
             />
         </Principal>
     );
 }
 
-const ModalConsulta = ({ row, setModal, pessoaID, contas }) => {
-    const [data, setDataConsulta] = useState(dayjs().format('DD/MM/YYYY'))
+const ModalConsulta = ({ row, setModal, pessoaID, setContas, contas }) => {
+    const [data, setDataConsulta] = useState(row.data)
     const [nome, setNome] = useState(row.nome || '')
     const [valor, setValor] = useState(row.valor || '')
     const [situacao, setSituacao] = useState(row.situacao || 0)
@@ -76,56 +91,65 @@ const ModalConsulta = ({ row, setModal, pessoaID, contas }) => {
         setValor(e.target.value)
     }
 
-    const handleSave = async (opt, row) => {
-        console.log(opt)
-    
-        const fetchData = async (isEdit) => {
-            try {                
-                let res;
-                if (isEdit) {
+    const handleSave = async (opt) => {       
+       let _data = {
+            nome: nome,
+            data: data,
+            valor: Number(valor),
+            situacao: situacao
+        }
 
-                    const _data = {
-                        id: row.id,
-                        nome: nome,
-                        valor: valor,
-                        tipo_conta: row.tipo_conta,
-                        pessoa_id: row.pessoa_id,
-                        situacao: situacao,
-                        data: data
-                    };
-                    console.log(row.id)
+       if(opt){ // editar
+            _data.data = data
+            axios.put(`http://192.168.3.9:3000/put_conta/${row.id}`, _data)
+            .then(res=>{
+                setContas(novasContas => {
+                    return [
+                        ...novasContas.slice(0, row.index),
+                        res.data[0],
+                        ...novasContas.slice(row.index + 1)
+                    ]
+                })
+                setModal(false)
+            })
+        return
+       }
 
-                    res = await api.put(`/contas/${row.id}`, _data);
+       //salvar
 
-                    row.nome = _data.nome;
-                    row.valor = _data.valor;
-                    row.situacao = _data.situacao;
-                    row.data = _data.data;
-                    console.log(res);
-                } else {
-                    const _data = {
-                        id: uuidv4(),
-                        nome: nome,
-                        valor: valor,
-                        tipo_conta: "0",
-                        pessoa_id: pessoaID,
-                        situacao: situacao,
-                        data: data
-                    };
-                    res = await api.post(`/contas`, _data);
-                    console.log(res);
-                }
-    
-                //contas.push(_data);
-    
-                setModal(false);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-    
-        await fetchData(opt);
-    };    
+       _data.pessoa_id = pessoaID
+       _data.tipo_conta = 0
+
+       try{
+        axios.post(`http://192.168.3.9:3000/post_conta/`, _data)
+        .then(res=>{
+            console.log(res.data)
+            setContas([...contas, res.data])
+            setModal(false)
+        })
+       }catch(err){
+        console.log('Erro: ' + err)
+       }
+
+    };
+
+    const handleCancel = () => {
+        setModal(false)
+    }
+
+    const handleDelete = async () => {
+        console.log(contas)
+        console.log(row)
+
+        try{
+            axios.delete('http://192.168.3.9:3000/delete_conta/' + row.id)
+            contas.splice(0, 1);
+            setContas([...contas]);
+            setModal(false)
+        }catch(err){
+            console.log('Erro: ' + err)
+        }
+    }
 
     return (
         <>
@@ -171,17 +195,18 @@ const ModalConsulta = ({ row, setModal, pessoaID, contas }) => {
             </InputBox>
             <br />
             <InputBox className='boxBotoes'>
-                <button
-                    className='button cancelar'
-                    onClick={() => setModal(false)}
-                >Cancelar
-                </button>
-                <button
-                    className='button salvar'
-                    onClick={()=>handleSave(row !== -1, row)}
-                >
-                    {row !== -1 ? 'Salvar' : 'Adicionar'}
-                </button>
+                { row !== 1 ? ( <BttnExcluir 
+                    onClick={handleDelete}
+                />) : false
+                }
+                <BttnCancelar
+                    onClick={handleCancel}
+                    text='-'
+                />
+                <BttnSalvar
+                    onClick={()=>{handleSave(row !== 1)}}
+                    text={row !== -1 ? 'Salvar' : 'Adicionar'}
+                />
             </InputBox>
         </>
     );
